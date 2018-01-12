@@ -1,0 +1,83 @@
+ENTETE stat_test, , 
+
+##include "stat.h"
+
+DEBUT
+
+SERVICE stat
+    -- Declarations des parametres du service
+    #double MeanA;
+    #double MeanB;
+    #double VarA;
+    #double VarB;
+    #double StddevA;
+    #double StddevB;
+
+--------------------------------------------------------
+
+    TEST InitSeed
+    FAMILLE nominal
+
+		ELEMENT
+			VAR Seed,		init = 15 ,		va = 0
+    		#InitSeed();
+    	FIN ELEMENT
+    FIN TEST -- InitSeed
+
+--------------------------------------------------------
+
+    TEST Calc_Sum_Mean
+    FAMILLE nominal
+
+		ELEMENT	
+            VAR SumA,		init = 0 ,		va = 50
+            VAR MeanA,		init = 0 ,		va = 5
+            TAB ArrayA[0..9],	init = {2,4,6,8,6,4,2,4,6,8},	va = {2,4,6,8,6,4,2,4,6,8}
+    		#Calc_Sum_Mean(ArrayA, &SumA, &MeanA);
+    	FIN ELEMENT
+    FIN TEST -- Calc_Sum_Mean
+
+--------------------------------------------------------
+
+     TEST Calc_Sum_Mean2
+    FAMILLE nominal
+
+		ELEMENT	
+            VAR SumA,		init = 0 ,		va = 45
+            VAR MeanA,		init = 0 ,		va = 4.5
+            TAB ArrayA[0..9],	init = {1,2,3,4,5,6,7,8,9,0},	va = {1,2,3,4,5,6,7,8,9,0}
+    		#Calc_Sum_Mean(ArrayA, &SumA, &MeanA);
+    	FIN ELEMENT
+    FIN TEST -- Calc_Sum_Mean2
+
+--------------------------------------------------------
+
+     TEST Calc_Var_Stddev
+    FAMILLE nominal
+
+		ELEMENT
+            VAR StddevA,		init = 0 ,		va = 1
+            VAR VarA,		init = 0 ,		va = 1
+            VAR MeanA,		init = 0 ,		va = 0
+            TAB ArrayA[0..9],	init = {1,1,1,1,1,1,1,1,1,1},	va = {1,1,1,1,1,1,1,1,1,1}
+    		#Calc_Var_Stddev(ArrayA, MeanA, &VarA, &StddevA);
+    	FIN ELEMENT
+    FIN TEST -- Calc_Var_Stddev
+
+--------------------------------------------------------
+
+    TEST Calc_LinCorrCoef
+    FAMILLE nominal
+
+		ELEMENT
+            VAR Coef,		init = 0 ,		va = 1
+            VAR MeanA,		init = 0 ,		va = 0
+            VAR MeanB,		init = 0 ,		va = 0
+            TAB ArrayA[0..9],	init = {1,0,0,0,0,0,0,0,0,0},	va = {1,0,0,0,0,0,0,0,0,0}
+            TAB ArrayB[0..9],	init = {1,0,0,0,0,0,0,0,0,0},	va = {1,0,0,0,0,0,0,0,0,0}
+    		#Calc_LinCorrCoef(ArrayA, ArrayB, MeanA, MeanB);
+    	FIN ELEMENT
+    FIN TEST -- Calc_LinCorrCoef
+
+
+FIN SERVICE
